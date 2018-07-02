@@ -1,0 +1,11 @@
+numpy
+keras
+tensorflow
+librosa
+matplotlib
+h5py
+imageio
+
+scipy
+scikit-learn
+winshell
