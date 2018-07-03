@@ -1,18 +1,16 @@
 #! /usr/bin/env python3
 
-'''
-Preprocess audio
-'''
-from __future__ import print_function
 import numpy as np
-from panotti.datautils import *
 import librosa
-from audioread import NoBackendError
 import os
+import multiprocessing as mp
+from __future__ import print_function
+from panotti.datautils import *
+from audioread import NoBackendError
 from PIL import Image
 from functools import partial
 from imageio import imwrite
-import multiprocessing as mp
+
 from utils.resolve_osx_aliases import resolve_osx_alias
 
 # this is either just the regular shape, or it returns a leading 1 for mono
@@ -172,6 +170,7 @@ def preprocess_dataset(inpath="Samples/", outpath="Preproc/", train_percentage=0
     return
 
 if __name__ == '__main__':
+    
     import platform
     import argparse
     parser = argparse.ArgumentParser(description="preprocess_data: convert sames to python-friendly data format for faster loading")
