@@ -1,10 +1,10 @@
 #! /usr/bin/env python3
 
+from __future__ import print_function
 import numpy as np
 import librosa
 import os
 import multiprocessing as mp
-from __future__ import print_function
 from panotti.datautils import *
 from audioread import NoBackendError
 from PIL import Image
