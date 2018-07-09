@@ -1,17 +1,5 @@
 #! /usr/bin/env python3
 
-'''
-Classify sounds using database - evaluation code.
-Generates a score based on contents of Preproc/Test/
-
-Author: Scott H. Hawley
-
-This is kind of a mixture of Keun Woo Choi's code https://github.com/keunwoochoi/music-auto_tagging-keras
-   and the MNIST classifier at https://github.com/fchollet/keras/blob/master/examples/mnist_cnn.py
-
-Trained using Fraunhofer IDMT's database of monophonic guitar effects,
-   clips were 2 seconds long, sampled at 44100 Hz
-'''
 from __future__ import print_function
 import numpy as np
 import matplotlib
@@ -84,7 +72,6 @@ def count_mistakes(y_scores,Y_test,paths_test,class_names):
         if (pred != truth):
             mistake_count[truth] += 1
             max_string_len = max( len(paths_test[i]), max_string_len )
-            #mistake_log[truth].append( paths_test[i].ljust(max_string_len)+": should be "+class_names[truth]+" but came out as "+class_names[pred])
             mistake_log[truth].append(paths_test[i].ljust(max_string_len) + " " + class_names[truth] + " " + class_names[pred])
 
 
@@ -95,17 +82,18 @@ def count_mistakes(y_scores,Y_test,paths_test,class_names):
 
     return
 
-
-def eval_network(weights_file="weights.hdf5", classpath="Preproc/Test/", batch_size=40):
+def eval_network(weights_file="weights.hdf5", classpath="Preproc/Test/", batch_size=20):
     np.random.seed(1)
 
-    # get the data
+    # Get the data
     X_test, Y_test, paths_test, class_names = build_dataset(path=classpath, batch_size=batch_size)
     print("class names = ",class_names)
     n_classes = len(class_names)
 
     # Load the model
     model, serial_model = setup_model(X_test, class_names, weights_file=weights_file, missing_weights_fatal=True)
+
+    # Print model layers
     model.summary()
 
     num_pred = X_test.shape[0]
@@ -160,7 +148,6 @@ def eval_network(weights_file="weights.hdf5", classpath="Preproc/Test/", batch_s
     print("\nFinished.")
     #plt.show()
     return
-
 
 if __name__ == '__main__':
     import argparse

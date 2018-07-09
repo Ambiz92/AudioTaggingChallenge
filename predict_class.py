@@ -73,9 +73,9 @@ def main(args):
             y_proba = predict_one(signal, sr, model, expected_melgram_shape) # class_names, model, weights_file=args.weights)
 
             for i in range(nb_classes):
-                print( class_names[i],": ",y_proba[i],", ",end="",sep="")
+                print( class_names[i],": ",y_proba[i],"\n",end="",sep="")
             answer = class_names[ np.argmax(y_proba)]
-            print("--> ANSWER:", class_names[ np.argmax(y_proba)])
+            print("\nANSWER:", class_names[ np.argmax(y_proba)])
             outstr = '\n  {\n   "id": "'+str(idnum)+'",\n      "name":"'+infile+'",\n      "tags":[\n   "'+answer+'"]\n  }'
             if (idnum < numfiles-1):
                 outstr += ','
