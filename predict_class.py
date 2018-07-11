@@ -6,6 +6,7 @@ from __future__ import print_function
 import numpy as np
 import librosa
 import os
+import csv
 from os.path import isfile
 from panotti.models import *
 from panotti.datautils import *
@@ -57,8 +58,11 @@ def main(args):
     expected_melgram_shape = model.layers[0].input_shape[1:]
     print("Expected_melgram_shape = ",expected_melgram_shape)
     file_count = 0
-    json_file = open("data.json", "w")
-    json_file.write('{\n"items":[')
+    #json_file = open("data.json", "w")
+    #json_file.write('{\n"items":[')
+    with open('submission.csv', 'w', newline='') as csvfile:
+        spamwriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        spamwriter.writerow(['fname', 'label'])
 
     idnum = 0
     numfiles = len(args.file)
@@ -79,8 +83,13 @@ def main(args):
             outstr = '\n  {\n   "id": "'+str(idnum)+'",\n      "name":"'+infile+'",\n      "tags":[\n   "'+answer+'"]\n  }'
             if (idnum < numfiles-1):
                 outstr += ','
-            json_file.write(outstr)
-            json_file.flush()     # keep json file up to date
+
+            with open('submission.csv', 'w', newline='') as csvfile:
+                spamwriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                spamwriter.writerow([infile[6:]], [answer])
+
+            #json_file.write(outstr)
+            #json_file.flush()     # keep json file up to date
         else:
             pass #print(" *** File",infile,"does not exist.  Skipping.")
         idnum += 1
