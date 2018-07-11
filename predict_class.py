@@ -60,9 +60,9 @@ def main(args):
     file_count = 0
     #json_file = open("data.json", "w")
     #json_file.write('{\n"items":[')
-    with open('submission.csv', 'w', newline='') as csvfile:
-        csvwriter = csv.writer(csvfile, delimiter=',')
-        csvwriter.writerow(['fname', 'label'])
+    csvfile = open('submission.csv', 'w', newline='')
+    csvwriter = csv.writer(csvfile, delimiter=',')
+    csvwriter.writerow(['fname', 'label'])
 
     idnum = 0
     numfiles = len(args.file)
@@ -93,8 +93,9 @@ def main(args):
             pass #print(" *** File",infile,"does not exist.  Skipping.")
         idnum += 1
 
-    json_file.write("]\n}\n")
-    json_file.close()
+    #json_file.write("]\n}\n")
+    #json_file.close()
+    csvfile.close()
 
     return
 
