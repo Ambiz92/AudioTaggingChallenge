@@ -70,7 +70,7 @@ def main(args):
     for infile in args.file:
         if os.path.isfile(infile):
             file_count += 1
-            print("File",infile,":",end="")
+            print("File " + str(file_count),infile,":",end="")
 
             signal, sr = load_audio(infile, mono=mono, sr=resample)
 
