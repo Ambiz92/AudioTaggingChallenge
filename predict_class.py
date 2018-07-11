@@ -84,9 +84,8 @@ def main(args):
             if (idnum < numfiles-1):
                 outstr += ','
 
-            with open('submission.csv', 'w', newline='') as csvfile:
-                csvwriter = csv.writer(csvfile, delimiter=',')
-                csvwriter.writerow([infile[6:], answer])
+            csvwriter = csv.writer(csvfile, delimiter=',')
+            csvwriter.writerow([infile[6:], answer])
 
             #json_file.write(outstr)
             #json_file.flush()     # keep json file up to date
