@@ -22,7 +22,7 @@ def get_canonical_shape(signal):
 
 def predict_one(signal, sr, model, expected_melgram_shape):# class_names, model)#, weights_file="weights.hdf5"):
     X = make_layered_melgram(signal,sr)
-    print("signal.shape, melgram_shape, sr = ",signal.shape, X.shape, sr)
+    #print("signal.shape, melgram_shape, sr = ",signal.shape, X.shape, sr)
 
     if (X.shape[1:] != expected_melgram_shape):   # resize if necessary, pad with zeros
         Xnew = np.zeros([1]+list(expected_melgram_shape))
@@ -54,9 +54,9 @@ def main(args):
 
     #class_names = get_class_names(args.classpath) # now encoding names in model weights file
     nb_classes = len(class_names)
-    print(nb_classes," classes to choose from: ",class_names)
+    #print(nb_classes," classes to choose from: ",class_names)
     expected_melgram_shape = model.layers[0].input_shape[1:]
-    print("Expected_melgram_shape = ",expected_melgram_shape)
+    #print("Expected_melgram_shape = ",expected_melgram_shape)
     file_count = 0
     #json_file = open("data.json", "w")
     #json_file.write('{\n"items":[')
@@ -66,7 +66,7 @@ def main(args):
 
     idnum = 0
     numfiles = len(args.file)
-    print("Reading",numfiles,"files")
+    #print("Reading",numfiles,"files")
     for infile in args.file:
         if os.path.isfile(infile):
             file_count += 1
@@ -75,9 +75,10 @@ def main(args):
             signal, sr = load_audio(infile, mono=mono, sr=resample)
 
             y_proba = predict_one(signal, sr, model, expected_melgram_shape) # class_names, model, weights_file=args.weights)
-
+            '''
             for i in range(nb_classes):
                 print( class_names[i],": ",y_proba[i],"\n",end="",sep="")
+            '''
             answer = class_names[ np.argmax(y_proba)]
             print("\nANSWER:", class_names[ np.argmax(y_proba)])
             outstr = '\n  {\n   "id": "'+str(idnum)+'",\n      "name":"'+infile+'",\n      "tags":[\n   "'+answer+'"]\n  }'
