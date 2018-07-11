@@ -61,8 +61,8 @@ def main(args):
     #json_file = open("data.json", "w")
     #json_file.write('{\n"items":[')
     with open('submission.csv', 'w', newline='') as csvfile:
-        spamwriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        spamwriter.writerow(['fname', 'label'])
+        csvwriter = csv.writer(csvfile, delimiter=',')
+        csvwriter.writerow(['fname', 'label'])
 
     idnum = 0
     numfiles = len(args.file)
@@ -85,8 +85,8 @@ def main(args):
                 outstr += ','
 
             with open('submission.csv', 'w', newline='') as csvfile:
-                spamwriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                spamwriter.writerow([infile[6:]], [answer])
+                csvwriter = csv.writer(csvfile, delimiter=',')
+                csvwriter.writerow([infile[6:], answer])
 
             #json_file.write(outstr)
             #json_file.flush()     # keep json file up to date
